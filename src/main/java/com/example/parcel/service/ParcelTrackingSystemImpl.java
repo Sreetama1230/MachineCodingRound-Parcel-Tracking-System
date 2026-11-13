@@ -111,7 +111,13 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 					// updating historicalRecordMap
 					List<ParcelDTO> existedList = historicalRecordMap.get(parcelId).get(attribute);
 					// closing the old parcel dto with current timestamp
-					existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
+					//existedList.get(existedList.size() - 1).setExpiryTime(timestamp);				
+					ParcelDTO lastDTO = existedList.get(existedList.size() - 1);
+
+					if (lastDTO.getExpiryTime() > timestamp) {
+						lastDTO.setExpiryTime(timestamp);
+					}
+					
 					existedList.add(dto);
 
 					return true;
@@ -136,7 +142,14 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 
 				// only setting up the expiry
 				List<ParcelDTO> existedList = historicalRecordMap.get(parcelId).get(attribute);
-				existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
+				
+				//existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
+				
+				ParcelDTO lastDTO = existedList.get(existedList.size() - 1);
+
+				if (lastDTO.getExpiryTime() > timestamp) {
+					lastDTO.setExpiryTime(timestamp);
+				}
 
 				return true;
 			}
@@ -181,7 +194,16 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 			// level - 4
 			if (historicalRecordMap.get(parcelId).containsKey(attribute)) {
 				List<ParcelDTO> existedList = historicalRecordMap.get(parcelId).get(attribute);
-				existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
+				
+				//existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
+				
+				ParcelDTO lastDTO = existedList.get(existedList.size() - 1);
+
+				if (lastDTO.getExpiryTime() > timestamp) {
+					lastDTO.setExpiryTime(timestamp);
+				}
+				
+				
 				existedList.add(parcelDTO);
 			} else {
 				List<ParcelDTO> newList = new ArrayList<>();
