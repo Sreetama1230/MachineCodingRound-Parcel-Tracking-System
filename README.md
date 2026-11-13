@@ -50,4 +50,27 @@ curl 'localhost:8080/api/parcels/PKG-001/attributes?timestamp=3&prefix=p'
 
 ## Practice tip
 Delete `ParcelTrackingSystemImpl` (keep the interface and tests) and rebuild it level by level, running that level's test class after each one.
+
+## Implementation
+
+Parcel Tracking System: Quick Notes
+Two maps:
+- hm: Stores the latest DTO (current state).
+- historicalRecordMap: Stores all historical DTOs in a list.
+Level-wise implementation:
+1. Level 1: Set and get attributes.
+2. Level 2: Conditional update and removal.
+3. Level 3: TTL-based expiration using expiryTime.
+4. Level 4: Historical lookup using getAttributeAt().
+Important logic:
+- On update, close the previous DTO and create a new one.
+- On removal, remove from hm but retain history in bigger.
+- Never modify an already expired DTO.
+- Validity condition:
+dto.getTimestamp() <= atTimestamp
+    && atTimestamp < dto.getExpiryTime()
+
+
+Remember: hm stores the current state; bigger preserves the complete history.
+
 # MachineCodingRound-Parcel-Tracking-System
