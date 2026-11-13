@@ -6,7 +6,7 @@ public class ParcelDTO {
 	String parcelId;
 	String attribute;
 	int value;
-	int ttl;
+	int expiryTime;
 	
 	public int getTimestamp() {
 		return timestamp;
@@ -36,11 +36,12 @@ public class ParcelDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getTtl() {
-		return ttl;
+
+	public int getExpiryTime() {
+		return expiryTime;
 	}
-	public void setTtl(int ttl) {
-		this.ttl = ttl;
+	public void setExpiryTime(int expiryTime) {
+		this.expiryTime = expiryTime;
 	}
 	public ParcelDTO(int timestamp, String parcelId, String attribute, int value) {
 		super();
