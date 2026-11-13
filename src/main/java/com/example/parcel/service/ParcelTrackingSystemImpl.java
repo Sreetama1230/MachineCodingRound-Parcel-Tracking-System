@@ -99,7 +99,7 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 
 				if (val == expectedValue) {
 
-					// hm and bigger contain references to the same DTO object.
+					// hm and historicalRecordMap contain references to the same DTO object.
 
 					ParcelDTO dto = new ParcelDTO(timestamp, parcelId, attribute, newValue);
 					// taking the old parcel's expiry
@@ -108,7 +108,7 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 					// updating the hm's record
 					hm.get(parcelId).put(attribute, dto);
 
-					// updating bigger
+					// updating historicalRecordMap
 					List<ParcelDTO> existedList = historicalRecordMap.get(parcelId).get(attribute);
 					// closing the old parcel dto with current timestamp
 					existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
@@ -138,10 +138,6 @@ public class ParcelTrackingSystemImpl implements ParcelTrackingSystem {
 				List<ParcelDTO> existedList = historicalRecordMap.get(parcelId).get(attribute);
 				existedList.get(existedList.size() - 1).setExpiryTime(timestamp);
 
-				for (ParcelDTO dto : existedList) {
-					System.out.println("Value: " + dto.getValue() + " Start: " + dto.getTimestamp() + " Expiry: "
-							+ dto.getExpiryTime());
-				}
 				return true;
 			}
 		}
