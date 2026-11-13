@@ -9,27 +9,6 @@ In-memory machine-coding practice project with 4 progressive levels.
 | 3 | TTL | `setAttributeWithTtl` |
 | 4 | History | `getAttributeAt` |
 
-## Structure
-```
-src/main/java/com/example/parcel
-├── ParcelTrackingApplication.java      Spring Boot entry point
-├── model/AttributeRecord.java          one version: value, startTime, endTime, expiryTime
-├── service/ParcelTrackingSystem.java   interface (all 7 methods)
-├── service/ParcelTrackingSystemImpl.java   core logic
-└── controller/ParcelController.java    optional REST wrapper
-src/test/java/com/example/parcel
-├── Level1Test ... Level4Test           unit tests per level
-└── ParcelTrackingApplicationTests      context-load smoke test
-```
-
-## Design
-`Map<parcelId, TreeMap<attribute, List<AttributeRecord>>>`
-- Last record in the list is the current version; older ones are history.
-- A record is valid in `[startTime, min(endTime, expiryTime))`.
-- set / update close the previous version; remove only closes it (history is never deleted).
-- `getAttribute(ts, ...)` and `getAttributeAt(ts, ..., at)` share one lookup: `findActiveAt`.
-- `updateIfMatch` keeps the original expiry (no silent TTL extension).
-- A plain `setAttribute` creates a version with no TTL.
 
 ## Run
 ```
