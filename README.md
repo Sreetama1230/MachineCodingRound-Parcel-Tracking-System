@@ -44,11 +44,14 @@ Level-wise implementation:
 Important logic:
 - On update, close the previous DTO and create a new one.
 - On removal, remove from hm but retain history in historicalRecordMap.
+- On set, close the previous DTO and create a new one.
 - Never modify an already expired DTO.
 - Validity condition:
+
+```
 dto.getTimestamp() <= atTimestamp
     && atTimestamp < dto.getExpiryTime()
-
+```
 
 Remember: hm stores the current state; bigger preserves the complete history.
 
