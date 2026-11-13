@@ -43,7 +43,7 @@ Level-wise implementation:
 4. Level 4: Historical lookup using getAttributeAt().
 Important logic:
 - On update, close the previous DTO and create a new one.
-- On removal, remove from hm but retain history in bigger.
+- On removal, remove from hm but retain history in historicalRecordMap.
 - Never modify an already expired DTO.
 - Validity condition:
 dto.getTimestamp() <= atTimestamp
