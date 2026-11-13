@@ -53,6 +53,6 @@ dto.getTimestamp() <= atTimestamp
     && atTimestamp < dto.getExpiryTime()
 ```
 
-Remember: hm stores the current state; bigger preserves the complete history.
+Remember: hm stores the current state; historicalRecordMap preserves the complete history.
 
 # MachineCodingRound-Parcel-Tracking-System
